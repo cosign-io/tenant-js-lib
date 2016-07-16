@@ -26,7 +26,7 @@ Tenant.prototype.getSeed = function() {
   return {
     secretSeed: this.ks.getSeed(pwDerivedKey),
     address: '0x' + address,
-    priv: this.ks.exportPrivateKey(address, pwDerivedKey)
+    priv: '0x' + this.ks.exportPrivateKey(address, pwDerivedKey)
   }
 }
 
