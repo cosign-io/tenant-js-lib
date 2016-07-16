@@ -1,0 +1,24 @@
+{
+  "name": "tenant-js-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosign-io/tenant-js-lib.git"
+  },
+  "author": "Johann Barbie <johannbarbie@me.com> (http://johba.de/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cosign-io/tenant-js-lib/issues"
+  },
+  "homepage": "https://github.com/cosign-io/tenant-js-lib#readme",
+  "dependencies": {
+    "eth-lightwallet": "^2.4.3",
+    "ethereumjs-util": "^4.4.1",
+    "node-uuid": "^1.4.7"
+  }
+}
