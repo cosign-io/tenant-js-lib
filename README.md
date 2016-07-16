@@ -3,7 +3,7 @@
 
 ## Generate Seed
 
-```
+```js
 > var Lib = require('./index.js'); 
 > lib.generateSeed();
 { secretSeed: 'rubber crew absurd market frog diary laptop frame boat danger brisk forward',
@@ -19,7 +19,7 @@
 > lib.getSeed();
 { secretSeed: 'rubber crew absurd market frog diary laptop frame boat danger brisk forward',
   address: '0x47244b04311eb97b381e7038a28a9e1f97c2fb7a',
-  priv: '5bd78afc346ef2a8bda1fc0134b0d150340bceb8433a4fb7520d500482195705' }
+  priv: '0x5bd78afc346ef2a8bda1fc0134b0d150340bceb8433a4fb7520d500482195705' }
 
 > lib.configure('0x47244b04311eb97b381e7038a28a9e1f97c2fb7a', '0x47244b04311eb97b381e7038a28a9e1f97c2fb7a');
 { nonce: 'f28ca86d-365b-49f8-8a50-d08d6f74cae6',
