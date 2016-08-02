@@ -5,6 +5,7 @@
 
 ```js
 > var Lib = require('./index.js'); 
+> var lib = new Lib();
 > lib.generateSeed();
 { secretSeed: 'rubber crew absurd market frog diary laptop frame boat danger brisk forward',
   address: '0x47244b04311eb97b381e7038a28a9e1f97c2fb7a' }

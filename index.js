@@ -4,10 +4,29 @@ const wallet = require('eth-lightwallet');
 
 const pwDerivedKey = new Uint8Array([215,152,86,175,5,168,43,177,135,97,218,89,136,5,110,93,193,114,94,197,247,212,127,83,200,150,255,124,17,245,91,10]);
 
-function Tenant(secretSeed) {
-  if (secretSeed) {
-    this.ks = new wallet.keystore(secretSeed, pwDerivedKey);
+function Tenant(secret) {
+  if (secret && secret.length > 70) {
+    this.ks = new wallet.keystore(secret, pwDerivedKey);
     this.ks.generateNewAddress(pwDerivedKey, 1);
+  } else if (secret) {
+    this.ks = new wallet.keystore();
+    this.ks.addPriv = function(privkeyHex) {
+      var privKey = new Buffer(privkeyHex.replace('0x',''), 'hex');
+      var encPrivKey = wallet.keystore._encryptKey(privKey, pwDerivedKey);
+      var address = wallet.keystore._computeAddressFromPrivKey(privKey);
+      this.ksData["m/0'/0'/0'"].encPrivKeys[address] = encPrivKey;
+      this.ksData["m/0'/0'/0'"].addresses.push(address);
+    };
+    this.ks.isDerivedKeyCorrect = function(pwDerivedKey) {
+      if (!this.encSeed)
+        return true;
+      var paddedSeed = KeyStore._decryptString(this.encSeed, pwDerivedKey);
+      if (paddedSeed.length > 0) {
+        return true;
+      }
+      return false;
+    };
+    this.ks.addPriv(secret);
   }
 }
 
@@ -23,11 +42,15 @@ Tenant.prototype.generateSeed = function() {
 
 Tenant.prototype.getSeed = function() {
   var address = this.ks.getAddresses()[0];
-  return {
-    secretSeed: this.ks.getSeed(pwDerivedKey),
+  var rv = {
     address: '0x' + address,
     priv: '0x' + this.ks.exportPrivateKey(address, pwDerivedKey)
+  };
+  if (this.ks.encSeed) {
+    console.log('here');
+    rv.secretSeed = this.ks.getSeed(pwDerivedKey);
   }
+  return rv;
 }
 
 Tenant.prototype.configure = function(ten, dest) {
